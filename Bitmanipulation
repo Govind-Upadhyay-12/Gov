@@ -1,0 +1,41 @@
+1- right shift in bit manipulation esme kya hota h maan ke chal tere pass 
+number hai kuch es tarah se 10>>3 eska mtlb ye h ki 10 ki binary  1010 to ye last se teen number hataega shortcut h
+phir ye return karega 0001 or ab eski ek shorttrick ye hai ki agar hamne kbhi right shift kia toh ye 10/2->5/2->2/2 to jitni baar right shift kia h vo etni baar 2 se divide karenge ham.
+
+2->Left shift left shift me kya hota h ki maan le hamare pass 5 hai or uska hamne left shift kia toh 5<<2 kia to ye left shift hoga esme 0.0....0101 aese binary hoti h to ab aage ke 2 zeros hatke piche ajaenge to hmara kuch number ab hoga 10100 last me 2 zero add hogae or eski ab shorttrick ye hai ki jo number h maanle  5 hai to eska left shift by 2 give us 5*2^2  2 ki power jitna left shift guven h.
+
+3-negation me sirf flip ko reverse kardo 101 ko 101 flip kia h bhai
+
+4->to check the ith bit is set or not so we can use mask here .. ham kese mask use karenge maanle hamare pass number h 0 1 0 0 0 hame ab 3rd bit check karni  h ith bit ke hisaaab se to ab ham kya karenge ki ek mask banaenge konsa mask left shift mask maanle mene banaya hai 1<<i agar ye kia mene toh ye 1000 kuch es tarah se hoga agar ab me esko and karunga 0 1 0 0 0 
+                    0 1 0 0 0 ->mask that we havecreated or agar ab eska hamne and kia toh ye us bit par 1 dedga agar uski set bit phle se hi 1 hue toh
+
+
+note**- never make changes in the data always make mask to perform..
+
+4-> to set the i the bit of a number.. we can create a mask eg se samjte hai number hai 100 hme 1st bit ko badalna h 0 to 1 to ham simple ek mask banaenge 1<<i jo bhi given hoga or eska ham kardenge or jo hmara num hai to vo set krdenge ... samj ja
+
+to check the ith bit of a number-> 1 1 0 0 1 0 esme hame i=4 ko 1 hai to zero karna h dekh esme kya karenge ham ~(1<<n) kia to hme milega ki n& mask kia to hmari jo bit hogi vo change hojaaegi how kese dekh tere par number hia  1 1 0 0 1 0 hame 4 bit ko change karna h to ham ky karenge ki 1<<4 ka mask banaya h to hme mila 0 1 0 0 0  0 whatever ab eska and kia to 1 hi aajaega but ham kya krenge ki eska negarion karenge ~(1<<4) to hmari bit kuch es tarah show hongi 1 0 1 1 1 1 agar ham hmne and kia to hmko apni msb bit mil jaaegi 0 ,..
+
+
+** remove the last set bit number maanle hmare pass hai 12 eski bit kya hogi eski bit hogi   1 0 0 0 0  ab esme kya 
+karna hai hme first bit mtkb phla 1 desi bhasa me vo hatana h to kese hataenge dekh simple hai agar ham es number ko 12 & 11 se and kardenge to kya aaega dekhte h-1 0 0 0 0 and 11-> 0 1 0 1 1 ye aaega ab hmane eska and kia to hmari 12 vaali ki phli bit hai 1 vo hat jaaegi and karne se ye hi hmko hatana tha
+Bitwise AND operation between num and num - 1:
+scss
+Copy code
+num      = 1100 (12 in binary)
+num - 1  = 1011 (11 in binary)
+num & (num - 1) = 1000 (8 in binary)
+In the bitwise AND operation, only those bits that have a corresponding 1 in both num and num - 1 remain set to 1 in the result. All other bits are set to 0. As a result, the rightmost set bit (previously 2^2 or 4 in decimal) is removed from num, leaving us with 2^3 (8 in decimal).
+
+Therefore, the operation num = num & (num - 1) effectively removes the rightmost set bit from num. This operation is frequently used in programming, especially in situations where you need to manipulate individual bits efficiently. It is also a fundamental building block for various bitwise algorithms and optimizations.
+
+
+** ab ek cheez dekh tuje power of 2 ka check ka check karna h to simple ye kar ki 8 hai jese to agar mene 8 ko 7 se and kia to 8 ki phli bit hogi vo kya hogi 1 se 0 hojaaegi or agar meri saari bits 0 hojaati hai to mtlb vo number hmara even h
+
+ab ek or cheez agar maan le hame count karna h ki hmare num me kitne number of set bits h to ham simple  kya krenge ki 12 hai ye dekh to 12 ka hoga 1 0 0 0 0. ye hoga or muje count karna h to me ky kar skta hu 12  ko & kia 1 se mtlb 1 0 0 0 0 ko 1 kia to agar h1 hoga to vo 1 dedega or ham count bada denge.. agar 0 hoga to ham counr nhi badaenge.. loop ke andar chalaenge or phir right shift kardenge kuch es tarh se
+while (num != 0) {
+                if ((num & 1) == 1) {
+                    c++;
+                }
+                num >>= 1; // Right shift and update the value of num
+            }
